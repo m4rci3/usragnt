@@ -1,4 +1,5 @@
 import json
+import logging
 
 def extract_user_agent(log_file_path):
     try:
@@ -12,7 +13,7 @@ def extract_user_agent(log_file_path):
         if user_agent:
             print(f"Extracted User-Agent: {user_agent}")
             return user_agent
-        else: 
+        else:
             print("User-Agent not found in log entry.")
             return None
 
