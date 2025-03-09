@@ -25,7 +25,7 @@ def extract_user_agent(log_file_path):
         return None
 
 # Provide the correct file path
-log_file_path = input('What is the path to your log file?')
+log_file_path = input('What is the path to your log file? ')
 
 # Call the function
 user_agent = extract_user_agent(log_file_path)
