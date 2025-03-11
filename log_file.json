@@ -1,25 +1,3 @@
-{
-    "ts": 1696602582.160856,
-    "uid": "CC8Vgh1bcURZIHZwVj",
-    "id.orig_h": "1.2.3.4",
-    "id.orig_p": 56128,
-    "id.resp_h": "5.6.7.8",
-    "id.resp_p": 80,
-    "trans_depth": 1,
-    "method": "GET",
-    "host": "www.bnl.gov",
-    "uri": "/newsroom/",
-    "version": "1.1",
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:134.0) Gecko/20100101 Firefox/134.0",
-    "request_body_len": 0,
-    "response_body_len": 235353,
-    "status_code": 200,
-    "status_msg": "OK",
-    "tags": [],
-    "resp_fuids": [
-      "GGpTbM3aS25Y2cdzKg"
-    ],
-    "resp_mime_types": [
-      "text/json"
-    ]
-  }
+{"ts":1591367999.512593,"uid":"C5bLoe2Mvxqhawzqqd","id.orig_h":"192.168.4.76","id.orig_p":46378,"id.resp_h":"31.3.245.133","id.resp_p":80,"trans_depth":1,"method":"GET","host":"testmyids.com","uri":"/","version":"1.1","user_agent":"curl/7.47.0","request_body_len":0,"response_body_len":39,"status_code":200,"status_msg":"OK","tags":[],"resp_fuids":["FEEsZS1w0Z0VJIb5x4"],"resp_mime_types":["text/plain"]}
+{"ts":1591367998.512583,"uid":"C5bLoe2Mvxqhawzqqd","id.orig_h":"192.168.3.76","id.orig_p":46678,"id.resp_h":"31.3.245.143","id.resp_p":80,"trans_depth":1,"method":"GET","host":"testmyids.com","uri":"/","version":"1.1","user_agent":"curl/7.47.0","request_body_len":0,"response_body_len":39,"status_code":200,"status_msg":"OK","tags":[],"resp_fuids":["FEEsZS1w0Z0VJIb5x4"],"resp_mime_types":["text/plain"]}
+{"ts":1696602582.160856,"uid":"CC8Vgh1bcURZIHZwVj","id.orig_h":"1.2.3.4","id.orig_p":56128,"id.resp_h":"5.6.7.8","id.resp_p":80,"trans_depth":1,"method":"GET","host":"www.bnl.gov","uri":"/newsroom/","version":"1.1","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:134.0) Gecko/20100101 Firefox/134.0","request_body_len":0,"response_body_len":235353,"status_code":200,"status_msg":"OK","tags":[],"resp_fuids":["GGpTbM3aS25Y2cdzKg"],"resp_mime_types":["text/json"]}
