@@ -1,25 +1,26 @@
 import json
-import logging
 
-def extract_user_agent(log_file_path):
+def extract_user_agents(log_file_path):
+    user_agents = []
+
     try:
-        # Open and read the file
         with open(log_file_path, "r") as file:
-            log_data = json.load(file)  # Read and parse JSON
+            for line in file:
+                try:
+                    log_entry = json.loads(line)  # Parse each line as a JSON object
+                    user_agent = log_entry.get("user_agent")
+                    if user_agent:
+                        print(f"Extracted User-Agent: {user_agent}")
+                        user_agents.append(user_agent)
+                except json.JSONDecodeError as e:
+                    print(f"Skipping invalid JSON line: {e}")
 
-        # Extract the user-agent
-        user_agent = log_data.get("user_agent", None)
-
-        if user_agent:
-            print(f"Extracted User-Agent: {user_agent}")
-            return user_agent
-        else:
-            print("User-Agent not found in log entry.")
+        if not user_agents:
+            print("No User-Agent fields found in the log file.")
             return None
 
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON: {e}")
-        return None
+        return user_agents
+
     except FileNotFoundError:
         print("Error: File not found.")
         return None
@@ -28,5 +29,6 @@ def extract_user_agent(log_file_path):
 log_file_path = input('What is the path to your log file? ')
 
 # Call the function
-user_agent = extract_user_agent(log_file_path)
-print(user_agent)
+user_agents = extract_user_agents(log_file_path)
+print(user_agents)
+
