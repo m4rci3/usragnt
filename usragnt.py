@@ -1,4 +1,12 @@
 import json
+import logging
+import requests
+
+#logging
+logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        filename ='zeek_useragent.log')
 
 def extract_user_agents(log_file_path):
     user_agents = []
@@ -6,7 +14,7 @@ def extract_user_agents(log_file_path):
     try:
         with open(log_file_path, "r") as file:
             for line in file:
-                try:
+                try: #In case non existence of file to prevent crashing
                     log_entry = json.loads(line)  # Parse each line as a JSON object
                     user_agent = log_entry.get("user_agent")
                     if user_agent:
@@ -17,18 +25,57 @@ def extract_user_agents(log_file_path):
 
         if not user_agents:
             print("No User-Agent fields found in the log file.")
-            return None
-
+            return []
+        
+        print(f"Found {len(user_agents)} user-agents in total")
         return user_agents
 
     except FileNotFoundError:
         print("Error: File not found.")
         return None
 
-# Provide the correct file path
-log_file_path = input('What is the path to your log file? ')
+def analyze_user_agent(user_agent):
+    api_url = f"https://useragentstring.com/?uas={user_agent}&getJSON=all"
+    
+    try:
+        print(f"Asking API about: {user_agent}")
+        response = requests.get(api_url)
 
-# Call the function
-user_agents = extract_user_agents(log_file_path)
-print(user_agents)
+        if response.status_code == 200:
+            result = response.json()
+            return result
+        else:
+            print(f"API request failed with status code: {response.status_code}")
+            return None
+        
+    except requests.RequestException as e:
+        print(f"Error connecting to API: {e}")
+        return None
+
+def display_results(user_agent, analysis):
+    if not analysis:
+        print(f"\nCould not analyze: {user_agent}\n")
+        return
+    browser = analysis.get("agent_name","Unknown")
+    version = analysis.get("agent_version","Unknown")
+    os_name = analysis.get("os_name","Unknown")
+    os_version = analysis.get("os_versionNumber","Unknown")
+
+    print(f"Browser: {browser} {version}")
+    print(f"OS: {os_name} {os_version}")
+
+def main():
+# Provide the correct file path
+    log_file_path = input('What is the path to your log file? ')
+    user_agents = extract_user_agents(log_file_path)
+
+    if not user_agents:
+        print("No user-agent found. Exiting.")
+
+    for user_agent in user_agents:
+        result = analyze_user_agent(user_agent)
+        display_results(user_agent, result)
+
+if __name__ == "__main__":
+    main()
 
