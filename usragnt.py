@@ -65,16 +65,25 @@ def display_results(user_agent, analysis):
     print(f"OS: {os_name} {os_version}")
 
 def main():
-# Provide the correct file path
+# Provide the correct file path and works as a limiter
     log_file_path = input('What is the path to your log file? ')
     user_agents = extract_user_agents(log_file_path)
 
     if not user_agents:
         print("No user-agent found. Exiting.")
+        return
+    
+    if len(user_agents) > 2:
+        answer= input(f"Found {len(user_agents)} user-agents. Analyze all? (y/n, default=n): ")
+        if answer.lower() != 'y':
+            user_agents = user_agents[:2]
+            print(f"Analyzing first 3 user-agents")
 
     for user_agent in user_agents:
         result = analyze_user_agent(user_agent)
         display_results(user_agent, result)
+    
+        print(f"Analysis complete. Processed {len(user_agents)} user-agent strings.")
 
 if __name__ == "__main__":
     main()
