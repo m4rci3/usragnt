@@ -27,7 +27,6 @@ def extract_user_agents(log_file_path):
             print("No User-Agent fields found in the log file.")
             return []
         
-        print(f"Found {len(user_agents)} user-agents in total")
         return user_agents
 
     except FileNotFoundError:
