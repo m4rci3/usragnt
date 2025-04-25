@@ -82,8 +82,6 @@ def main():
     for user_agent in user_agents:
         result = analyze_user_agent(user_agent)
         display_results(user_agent, result)
-    
-        print(f"Analysis complete. Processed {len(user_agents)} user-agent strings.")
 
 if __name__ == "__main__":
     main()
