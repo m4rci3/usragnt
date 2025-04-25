@@ -76,7 +76,7 @@ def main():
     if len(user_agents) > 2:
         answer= input(f"Found {len(user_agents)} user-agents. Analyze all? (y/n, default=n): ")
         if answer.lower() != 'y':
-            user_agents = user_agents[:2]
+            user_agents = user_agents[:3]
             print(f"Analyzing first 3 user-agents")
 
     for user_agent in user_agents:
