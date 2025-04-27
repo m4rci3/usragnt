@@ -2,7 +2,6 @@ import json
 import logging
 import requests
 
-#logging
 logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
@@ -14,8 +13,8 @@ def extract_user_agents(log_file_path):
     try:
         with open(log_file_path, "r") as file:
             for line in file:
-                try: #In case non existence of file to prevent crashing
-                    log_entry = json.loads(line)  # Parse each line as a JSON object
+                try: 
+                    log_entry = json.loads(line)  
                     user_agent = log_entry.get("user_agent")
                     if user_agent:
                         print(f"Extracted User-Agent: {user_agent}")
@@ -64,7 +63,6 @@ def display_results(user_agent, analysis):
     print(f"OS: {os_name} {os_version}")
 
 def main():
-# Provide the correct file path and works as a limiter
     log_file_path = input('What is the path to your log file? ')
     user_agents = extract_user_agents(log_file_path)
 
