@@ -1,6 +1,7 @@
 import json
 import logging
 import requests
+import sys
 
 logging.basicConfig(
         level=logging.INFO,
@@ -9,7 +10,6 @@ logging.basicConfig(
 
 def extract_user_agents(log_file_path):
     user_agents = []
-
     try:
         with open(log_file_path, "r") as file:
             for line in file:
@@ -17,28 +17,22 @@ def extract_user_agents(log_file_path):
                     log_entry = json.loads(line)  
                     user_agent = log_entry.get("user_agent")
                     if user_agent:
-                        print(f"Extracted User-Agent: {user_agent}")
                         user_agents.append(user_agent)
                 except json.JSONDecodeError as e:
                     print(f"Skipping invalid JSON line: {e}")
-
         if not user_agents:
             print("No User-Agent fields found in the log file.")
             return []
-        
         return user_agents
-
     except FileNotFoundError:
         print("Error: File not found.")
         return None
 
 def analyze_user_agent(user_agent):
     api_url = f"https://useragentstring.com/?uas={user_agent}&getJSON=all"
-    
-    try:
-        print(f"Asking API about: {user_agent}")
-        response = requests.get(api_url)
 
+    try:
+        response = requests.get(api_url)
         if response.status_code == 200:
             result = response.json()
             return result
@@ -63,18 +57,27 @@ def display_results(user_agent, analysis):
     print(f"OS: {os_name} {os_version}")
 
 def main():
-    log_file_path = input('What is the path to your log file? ')
+    if len(sys.argv) != 2:
+        print(f"ERROR: 1 argument expected, {len(sys.argv) - 1} given ")
+        sys.exit()
+    log_file_path = sys.argv[1]
     user_agents = extract_user_agents(log_file_path)
 
     if not user_agents:
         print("No user-agent found. Exiting.")
         return
-    
+
     if len(user_agents) > 2:
-        answer= input(f"Found {len(user_agents)} user-agents. Analyze all? (y/n, default=n): ")
-        if answer.lower() != 'y':
-            user_agents = user_agents[:2]
-            print(f"Analyzing first 2 user-agents")
+        while True:
+            answer = input(f"Found {len(user_agents)} user-agents. Analyze all? (y/n, default=n, default= 2 user_agents): ")
+            if answer.lower() == "n" or answer == "":
+                user_agents = user_agents[:2]
+                break
+            elif answer.lower() == "y":
+                break
+            else:
+                print("Invalid input. Exiting.")
+                sys.exit()
 
     for user_agent in user_agents:
         result = analyze_user_agent(user_agent)
