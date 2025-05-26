@@ -6,7 +6,7 @@ import sys
 logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
-        filename ='zeek_useragent.log')
+        filename ='errorchecking.log')
 
 def extract_user_agents(log_file_path):
     user_agents = []
